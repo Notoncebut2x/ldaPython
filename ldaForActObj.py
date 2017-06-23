@@ -93,7 +93,3 @@ print(ldamodel.print_topics(num_topics=8, num_words=8))
 print ('### REPORT ###')
 print('There are: %d documents in this analysis' % len(docSet))
 print('There are: %d language(s) in this analysis' % len(uniqueLang))
-
-
-# create English stop words list
-stopWords = get_stop_words('en')

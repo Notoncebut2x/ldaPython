@@ -29,14 +29,12 @@ esSet = []
 
 # load the csv with the documents (1 per row)
 with open('./dprkSlogans.csv', 'r') as docs:
-
     reader = csv.reader(docs)
     for row in reader:
         docSet.append(unicode(''.join(row), 'utf-8'));
 
 # record how many documents are in the analsysis
 docLen = len(docSet)
-print('There are: %d documents in this analysis' % len(docSet))
 
 # create a dictionary of the documents: index:documenet text
 for i in range(0, docLen):
@@ -46,13 +44,7 @@ for i in range(0, docLen):
 for i in docDic:
     langDic[i] = detect(docDic[i])
 
-print langDic
-print('docDic Length: %d ' % len (docDic))
-print('langDic Length: %d ' % len (langDic))
 uniqueLang = set (langDic.values())
-print uniqueLang
-
-print langDic.keys()[langDic.values().index('en')]
 
 # create list of non-english documents
 for doc, lang in langDic.items():
@@ -65,9 +57,6 @@ ldaSet = []
 for k, v in docDic.iteritems():
     if k not in esSet:
         ldaSet.append(v)
-
-print len(ldaSet)
-
 
 texts = []
 
@@ -97,9 +86,13 @@ corpus = [dictionary.doc2bow(text) for text in texts]
 
 # print corpus
 
-ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=3, id2word = dictionary, passes=30)
+ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=3, id2word = dictionary, passes=150)
 
-print(ldamodel.print_topics(num_topics=5, num_words=5))
+print(ldamodel.print_topics(num_topics=8, num_words=8))
+
+print ('### REPORT ###')
+print('There are: %d documents in this analysis' % len(docSet))
+print('There are: %d language(s) in this analysis' % len(uniqueLang))
 
 
 # create English stop words list
